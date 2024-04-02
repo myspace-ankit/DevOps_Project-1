@@ -27,16 +27,16 @@ pipeline {
             steps {
                 script {
                     // Replace 'ubuntu@ip-172.31.1.182' with the actual name or IP address of your test server
-                    def testServer = 'ubuntu@ip-172-31-46-18'
+                    def testServer = 'slave1@ip-10-0-0-196'
 
                     // Replace 'https://github.com/rohitchavan2/project_edureka.git' with your Ansible playbook Git repository URL
-                    def ansibleRepo = 'https://github.com/sayeemulay/DevOps_Project_AppleBite.git'
+                    def ansibleRepo = 'https://github.com/myspace-ankit/DevOps_Project-1'
 
                     // Clone the Ansible playbook repository
                     sh "git clone ${ansibleRepo} /tmp/ansible-repo"
 
                     // Copy Ansible playbook to the test server
-                    //sh "scp -r /tmp/ansible-repo/* ${testServer}:/home/ubuntu/Jenkins_slave"
+                    //sh "scp -r /tmp/ansible-repo/* ${testServer}:/home/slave1/Jenkins_slave"
 
                      // Run Ansible playbook on the test server
                     sh "ssh ${testServer} 'ansible-playbook /tmp/ansible-repo/website/docker-installation.yml'"
@@ -51,7 +51,7 @@ pipeline {
             steps {
                 script {
                     // Replace 'https://github.com/rohitchavan2/project_edureka.git' with your Git repository URL
-                    def gitRepo = 'https://github.com/sayeemulay/DevOps_Project_AppleBite.git'
+                    def gitRepo = 'https://github.com/myspace-ankit/DevOps_Project-1.git'
 
                     // Clone the Git repository
                     sh "git clone ${gitRepo} /tmp/php-web-app"
@@ -80,7 +80,7 @@ pipeline {
             // Send email on success
             emailext subject: "Job Succeeded: ${currentBuild.fullDisplayName}",
                       body: "The build of ${currentBuild.fullDisplayName} succeeded.",
-                      to: "sayeery2016@gmail.com",
+                      to: "myspace.ankit@gmail.com",
                       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
         }
 
@@ -88,7 +88,7 @@ pipeline {
             // Send email on failure
             emailext subject: "Job Failed: ${currentBuild.fullDisplayName}",
                       body: "The build of ${currentBuild.fullDisplayName} failed.",
-                      to: "sayeery2016@gmail.com",
+                      to: "myspace.ankit@gmail.com",
                       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
         }
     }
